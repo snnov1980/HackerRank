@@ -12,24 +12,22 @@ public class RepeatedString {
 	
 	// Complete the repeatedString function below.
     static long repeatedString(String s, long n) {
-    	long count = 0;
-        	
+    	long count = 0;        	
     	String finalString = s;
-		for(int i=0; finalString.length()<n; i++) {
-			finalString += finalString.charAt(i);
-		}
-		
-		Pattern pattern = Pattern.compile("a");
-		Matcher matcher = pattern.matcher(finalString);
-		
-		if(finalString.length()==1 && finalString.equalsIgnoreCase("a")) {
+    	
+		if((s.length()==1) && s.equalsIgnoreCase("a")) {
 			count = n;
-		}else if (finalString.length()==1 && !(finalString.equalsIgnoreCase("a"))) {
+		}else if((s.length()==1) && !(s.equalsIgnoreCase("a"))) {
 			count = 0;
 		}else {
+			for(long i=0; finalString.length()<(long)n; i++) {
+				finalString += finalString.valueOf(i);
+			}
+			Pattern pattern = Pattern.compile("a");
+			Matcher matcher = pattern.matcher(finalString);
 			while(matcher.find()) {
-				count++;
-			}						
+				count++;						
+			}			
 		}
     	return count;
     }
