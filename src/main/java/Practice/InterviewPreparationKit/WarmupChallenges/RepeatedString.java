@@ -9,42 +9,48 @@ import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class RepeatedString {
-	
 	// Complete the repeatedString function below.
-    static long repeatedString(String s, long n) {
-    	long count = 0;        	
-    	String finalString = s;
-    	
-		if((s.length()==1) && s.equalsIgnoreCase("a")) {
-			count = n;
-		}else if((s.length()==1) && !(s.equalsIgnoreCase("a"))) {
-			count = 0;
-		}else {
-			for(long i=0; finalString.length()<(long)n; i++) {
-				finalString += finalString.valueOf(i);
+	static long repeatedString(String s, long n) {
+
+		long countForSubstring = 0;
+		long totalCount = 0;
+
+		// Determines how many a's are in a substring
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == 'a') {
+				countForSubstring++;
 			}
-			Pattern pattern = Pattern.compile("a");
-			Matcher matcher = pattern.matcher(finalString);
-			while(matcher.find()) {
-				count++;						
-			}			
 		}
-    	return count;
-    }
 
-    private static final Scanner scanner = new Scanner(System.in);
+		// Determines how many complete substrings we will analyze
+		long divisor = n / s.length();
+		totalCount += divisor * countForSubstring;
 
-    public static void main(String[] args) throws IOException {
-        String s = scanner.nextLine();
+		// Determines how many characters in we will analyze towards the end of our n
+		// range
+		long remainder = n % s.length();
 
-        long n = scanner.nextLong();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		for (int i = 0; i < remainder; i++) {
+			if (s.charAt(i) == 'a') {
+				totalCount++;
+			}
+		}
+		return totalCount;
+	}
 
-        long result = repeatedString(s, n);
+	private static final Scanner scanner = new Scanner(System.in);
 
-        System.out.println(result);
+	public static void main(String[] args) throws IOException {
+		String s = scanner.nextLine();
 
-        scanner.close();
-    }
+		long n = scanner.nextLong();
+		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+		long result = repeatedString(s, n);
+
+		System.out.println(result);
+
+		scanner.close();
+	}
 
 }
