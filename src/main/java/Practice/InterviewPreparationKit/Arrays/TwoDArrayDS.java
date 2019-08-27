@@ -11,9 +11,22 @@ import java.util.regex.*;
 public class TwoDArrayDS {
 	// Complete the hourglassSum function below.
     static int hourglassSum(int[][] arr) {
-    	int sum = 0;
+    	int sum = -99999;
     	
+    	int[][] hourglasses = new int[4][4];
+    	for (int i=0; i<4; i++) {
+    		for (int j=0; j<4; j++) {
+    			hourglasses[i][j] = arr[i][j]+arr[i][j+1]+arr[i][j+2]+arr[i+1][j+1]+arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2];
+    		}
+    	}
     	
+    	for (int i=0; i<4; i++) {
+    		for (int j=0; j<4; j++) {
+    			if(sum < hourglasses[i][j]) {
+    				sum = hourglasses[i][j];    				
+    			}
+    		}
+    	}
     	return sum;
     }
 
