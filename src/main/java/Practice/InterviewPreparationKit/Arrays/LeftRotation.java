@@ -10,12 +10,22 @@ import java.util.regex.*;
 
 public class LeftRotation {
 	static int[] rotLeft(int[] a, int d) {
-		int[] finalArray = new int[a.length];
-
-		for (int i = d; i >= 0; i--) {
-			finalArray[d-i] = a[i];
+		
+		int[] temp =new int[d];
+		
+		for (int i=0; i<d; i++) {
+			temp[i] = a[i];
 		}
-		return finalArray;
+
+		for (int i = 0; i < a.length-d; i++) {
+			a[i] = a[i+d];
+		}
+		
+		for(int i =0; i<temp.length; i++) {
+			a[i+(a.length-d)] = temp[i];
+		}
+		
+		return a;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
