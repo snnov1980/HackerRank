@@ -29,12 +29,16 @@ public class NewYearChaos {
 						q[o] = temp;						
 					}
 				}
-			} else {
+			}else {
 				i = q.length;
 				System.out.println("Too chaotic");
+				break;
+			}
+			
+			if(i==q.length) {				
+				System.out.println(totalBribesOcc);
 			}
 		}
-		System.out.println(totalBribesOcc);
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
