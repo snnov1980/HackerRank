@@ -1,49 +1,26 @@
 package main.java.Practice.InterviewPreparationKit.Arrays;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class NewYearChaos {
 	static void minimumBribes(int[] q) {
-		int totalBribesOcc = 0;		
-		int temp;
-		for(int i=0; i<q.length; i++) {
-			int memBribe = 0;
-			for(int j=i+1; j<q.length; j++) {
-				if(q[i]>q[j]) {
-					memBribe++;
-					continue;
-				}
-			}
-			if(memBribe<3) {
-				for(int o =i+1; o<q.length; o++) {
-					if(q[i]>q[o]) {
-						totalBribesOcc++;
-						temp = q[i];
-						q[i] = q[o];
-						q[o] = temp;						
-					}
-				}
-			}else {
-				i = q.length;
+		int toatlBribe = 0;
+		for (int i= q.length-1; i>=0; i--) {
+			if(q[i]-(i+1)>2) {
 				System.out.println("Too chaotic");
-				break;
+				return;
 			}
-			
-			if(i==q.length) {				
-				System.out.println(totalBribesOcc);
+			for(int j= Integer.max(0, q[i]-2); j<i; j++) {
+				if(q[j]>q[i]) toatlBribe++;
 			}
 		}
+		System.out.println(toatlBribe);
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		int t = scanner.nextInt();
 		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
@@ -52,9 +29,9 @@ public class NewYearChaos {
 			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
 			int[] q = new int[n];
-
+			
 			String[] qItems = scanner.nextLine().split(" ");
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+			//scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
 			for (int i = 0; i < n; i++) {
 				int qItem = Integer.parseInt(qItems[i]);
@@ -63,7 +40,6 @@ public class NewYearChaos {
 
 			minimumBribes(q);
 		}
-
 		scanner.close();
 	}
 
