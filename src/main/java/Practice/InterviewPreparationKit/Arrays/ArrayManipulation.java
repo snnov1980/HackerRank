@@ -1,18 +1,35 @@
 package main.java.Practice.InterviewPreparationKit.Arrays;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 public class ArrayManipulation {
 	// Complete the arrayManipulation function below.
 	static long arrayManipulation(int n, int[][] queries) {
-		long 
-		
-		return n;
+		long largestArrayValue = 0;
+
+		int[] arrayOfZeros = new int[n];
+
+		int startInd = 0;
+		int endInd = 0;
+		int operator = 0;
+		for (int i = 0; i < queries.length; i++) {
+			startInd = queries[i][0];
+			endInd = queries[i][1];
+			operator = queries[i][2];
+			for (int re = startInd - 1; re <= endInd - 1; re++) {
+				arrayOfZeros[re] += operator;
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (arrayOfZeros[i] > largestArrayValue)
+				largestArrayValue = arrayOfZeros[i];
+		}
+
+		return largestArrayValue;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
