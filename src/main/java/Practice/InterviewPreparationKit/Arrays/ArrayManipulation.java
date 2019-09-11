@@ -10,23 +10,24 @@ public class ArrayManipulation {
 	static long arrayManipulation(int n, int[][] queries) {
 		long largestArrayValue = 0;
 
-		int[] arrayOfZeros = new int[n];
+		long[] arrayOfZeros = new long[n];
 
-		int startInd = 0;
-		int endInd = 0;
-		int operator = 0;
-		for (int i = 0; i < queries.length; i++) {
-			startInd = queries[i][0];
-			endInd = queries[i][1];
-			operator = queries[i][2];
-			for (int re = startInd - 1; re <= endInd - 1; re++) {
-				arrayOfZeros[re] += operator;
+		int leftIndex = 0;
+		int rightIndex = 0;
+		int summand = 0;
+		for (long i = 0; i < queries.length; i++) {
+			leftIndex = queries[(int)i][0];
+			rightIndex = queries[(int)i][1];
+			summand = queries[(int)i][2];
+			
+			for (int re = leftIndex - 1; re <= rightIndex - 1; re++) {
+				arrayOfZeros[re] += summand;
 			}
 		}
 
-		for (int i = 0; i < n; i++) {
-			if (arrayOfZeros[i] > largestArrayValue)
-				largestArrayValue = arrayOfZeros[i];
+		for (long i = 0; i < n; i++) {
+			if (arrayOfZeros[(int)i] > largestArrayValue)
+				largestArrayValue = arrayOfZeros[(int)i];
 		}
 
 		return largestArrayValue;
