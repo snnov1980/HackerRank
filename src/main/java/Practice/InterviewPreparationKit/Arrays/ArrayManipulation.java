@@ -8,26 +8,24 @@ import java.util.Scanner;
 public class ArrayManipulation {
 	// Complete the arrayManipulation function below.
 	static long arrayManipulation(int n, int[][] queries) {
-		long largestArrayValue = 0;
+		long largestArrayValue = Long.MIN_VALUE;
+		long sum = 0;
 
-		long[] arrayOfZeros = new long[n];
+		long[] arrayOfZeros = new long[n+1];
 
-		int leftIndex = 0;
-		int rightIndex = 0;
-		int summand = 0;
-		for (long i = 0; i < queries.length; i++) {
-			leftIndex = queries[(int)i][0];
-			rightIndex = queries[(int)i][1];
-			summand = queries[(int)i][2];
+		for (int i = 0; i < queries.length; i++) {
+			int leftIndex = queries[i][0];
+			int rightIndex = queries[i][1];
+			int summand = queries[i][2];
 			
-			for (int re = leftIndex - 1; re <= rightIndex - 1; re++) {
-				arrayOfZeros[re] += summand;
-			}
+			arrayOfZeros[leftIndex-1] += summand;
+			arrayOfZeros[rightIndex] -= summand;
+			
 		}
 
-		for (long i = 0; i < n; i++) {
-			if (arrayOfZeros[(int)i] > largestArrayValue)
-				largestArrayValue = arrayOfZeros[(int)i];
+		for (int i = 0; i < n; i++) {
+			sum += arrayOfZeros[i];
+			largestArrayValue = Math.max(sum, largestArrayValue);
 		}
 
 		return largestArrayValue;
