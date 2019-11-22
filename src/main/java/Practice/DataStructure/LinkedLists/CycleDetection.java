@@ -62,11 +62,20 @@ public class CycleDetection {
      *
      */
     static boolean hasCycle(SinglyLinkedListNode head) {
-		if(true) {
-			return true;			
-		}else return false;
-    	
-
+    	boolean hasCycle = false;
+		if(head == null) {
+			hasCycle = false;			
+		}
+		
+		SinglyLinkedListNode fast = head;
+		SinglyLinkedListNode slow = head;
+		
+		while(fast != slow) {
+			fast = fast.next.next;
+			slow = slow.next;
+			if(fast==slow) hasCycle = true;
+		}
+    	return hasCycle;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
