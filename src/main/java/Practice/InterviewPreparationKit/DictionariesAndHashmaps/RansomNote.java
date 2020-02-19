@@ -2,14 +2,15 @@ package main.java.Practice.InterviewPreparationKit.DictionariesAndHashmaps;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 public class RansomNote {
 	static void checkMagazine(String[] magazine, String[] note) {
-		Map<String, Integer> noteMap = new TreeMap<>();
-		Map<String, Integer> magazineMap = new TreeMap<>();
+		Map<String, Integer> noteMap = new HashMap<>();
+		Map<String, Integer> magazineMap = new HashMap<>();
 		String sCanReplicate = "Yes";
 
 		for (String temp : magazine) {
