@@ -16,19 +16,30 @@ public class CountTriplets {
 	static long countTriplets(List<Long> arr, long r) {
 		long count = 0;
 		
-		Collections.sort(arr);
+		Map<Long, Long> map = new HashMap<>();
+        Map<Long, Long> rMap = new HashMap<>();
+        
+        for(long n:arr) {
+        	if(n%r == 0) {
+        		long pre = n/r;
+        		Long cnt2 = rMap.get(pre);
+        		if(cnt2 != null) count += cnt2;
+        		
+        		Long cnt1 = map.get(pre);
+        		if(cnt1!=null) rMap.put(n, rMap.getOrDefault(n, 0L)+cnt1);
+        	}
+        	map.put(n, map.getOrDefault(n, 0L)+1);
+        }
 		
-		
-		for (int i=0; i<arr.size()-2; i++) {
-			for(int j=i+1; j<arr.size()-1;j++) {
-				for(int k =j+1; k<arr.size(); k++) {
-					if(arr.get(j)==arr.get(i)*r && arr.get(k)==arr.get(j)*r) {
-						count++;
-					}
-					System.out.println(arr.get(i) + " " + arr.get(j) + " " + arr.get(k));
-				}
-			}
-		}
+		/*
+		 * Collections.sort(arr);
+		 * 
+		 * 
+		 * for (int i=0; i<arr.size()-2; i++) { for(int j=i+1; j<arr.size()-1;j++) {
+		 * for(int k =j+1; k<arr.size(); k++) { if(arr.get(j)==arr.get(i)*r &&
+		 * arr.get(k)==arr.get(j)*r) { count++; } System.out.println(arr.get(i) + " " +
+		 * arr.get(j) + " " + arr.get(k)); } } }
+		 */
 		return count;
     }
 
