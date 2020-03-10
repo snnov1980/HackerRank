@@ -1,45 +1,63 @@
 package main.java.Practice.InterviewPreparationKit.DictionariesAndHashmaps;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class FrequencyQueries {
 	static List<Integer> freqQuery(List<List<Integer>> queries) {
 		List<Integer> output = new ArrayList<Integer>();
-		List<Integer> tempArray = new ArrayList<Integer>();
-		for(List<Integer> temp : queries) {
-			if((temp.get(0))==1) {
-				tempArray.add(temp.get(1));
-			}else if((temp.get(0))==2) {
-				tempArray.remove(temp.get(1));
-			}else if((temp.get(0))==3) {
-				if(tempArray.size()>0) {
-					Set<Integer> distinct = new HashSet<>(tempArray);
-					output.add(0);
-					for(Integer i : distinct) {
-						if(Collections.frequency(tempArray, i)==temp.get(1)) {
-							output.remove(output.size()-1);
-							output.add(1);
-							break;
-						}
-					}	
-				}else {
-					output.add(0);
-					continue;
+		Map<Integer, Integer> dataMap = new HashMap<>();
+		Map<Integer, Integer> freq = new HashMap<>();
+		for (List<Integer> temp : queries) {
+			if ((temp.get(0)) == 1) {
+				Integer currFreq = dataMap.get(temp.get(1));
+				if(currFreq==null) {
+					currFreq = 0;
 				}
+				dataMap.put(temp.get(1), currFreq+1);
+				if(currFreq+1>1) {
+					freq.put(currFreq, freq.get(currFreq)-1);
+				}
+				
+				Integer newFreqCount = freq.get(currFreq + 1);
+	            freq.put(currFreq + 1, newFreqCount == null ? 1 : newFreqCount + 1);
+				
+			} else if ((temp.get(0)) == 2) {
+				
+				Integer currFreq = dataMap.get(temp.get(1));
+				if (currFreq != null && currFreq > 0) {
+					dataMap.put(temp.get(1), currFreq - 1);
+
+	                if (currFreq - 1 > 0) {
+	                    freq.put(currFreq - 1, freq.get(currFreq - 1) + 1);
+	                }
+
+	                freq.put(currFreq, freq.get(currFreq) - 1);
+	            }
+				
+			} else if ((temp.get(0)) == 3) {
+				
+				Integer count = freq.get(temp.get(1));
+				if(count != null && count >0) output.add(1);
+				else output.add(0);
 			}
 		}
-		
+
 		return output;
 	}
 
